@@ -55,3 +55,31 @@ print("\nINSIGHTS:")
 print("Most content type:", type_counts.idxmax())
 print("Top country:", top_countries.idxmax())
 print("Most common rating:", ratings.idxmax())
+
+# -----------------------
+# ANALYSIS: Content over years
+# -----------------------
+
+year_counts = df['release_year'].value_counts().sort_index()
+
+year_counts.plot()
+
+plt.title("Content Released Over Years")
+plt.xlabel("Year")
+plt.ylabel("Count")
+
+plt.savefig("year_trend.png")
+plt.clf()
+
+# Extract duration for movies
+movies = df[df['type'] == 'Movie']
+
+movies['duration'] = movies['duration'].str.replace(' min', '').astype(float)
+
+movies['duration'].plot(kind='hist', bins=20)
+
+plt.title("Movie Duration Distribution")
+plt.xlabel("Minutes")
+
+plt.savefig("duration_dist.png")
+plt.clf()
